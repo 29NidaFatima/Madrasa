@@ -110,7 +110,6 @@ const App: React.FC = () => {
           <PrayerCard
             key={p}
             name={p}
-            time={timings[p]}
             allTimings={timings}
             nextIn={p === currentPrayer ? formatMinutes(nextPrayer[1]) : "--"}
             isCurrent={p === currentPrayer}
