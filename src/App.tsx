@@ -7,10 +7,6 @@ import { parse, differenceInMinutes } from "date-fns";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
-// ------------------------------
-// 🕌 Type Definitions
-// ------------------------------
-
 type PrayerName = "Fajr" | "Dhuhr" | "Asr" | "Maghrib" | "Isha";
 
 interface PrayerTimings {
@@ -29,10 +25,6 @@ interface PrayerStore {
 
 type GradientColors = [string, string];
 
-// ------------------------------
-// 🕌 Zustand Store
-// ------------------------------
-
 const usePrayerStore = create<PrayerStore>()(
   persist(
     (set) => ({
@@ -49,12 +41,7 @@ const usePrayerStore = create<PrayerStore>()(
   )
 );
 
-// ------------------------------
-// 🕌 Prayer Names and Colors
-// ------------------------------
-
 const prayerOrder: PrayerName[] = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
-
 const colorMap: Record<PrayerName, GradientColors> = {
   Fajr: ["#3F7CE6", "#D6BDFF"],
   Dhuhr: ["#E77715", "#FFE392"],
@@ -63,28 +50,19 @@ const colorMap: Record<PrayerName, GradientColors> = {
   Isha: ["#381079", "#811DEC"],
 };
 
-// ------------------------------
-// 🕰 Format time as "Xhr Ymin"
-// ------------------------------
-
 const formatMinutes = (mins: number): string => {
   const hr = Math.floor(mins / 60);
   const min = mins % 60;
   return `${hr > 0 ? `${hr}hr ` : ""}${min}min`;
 };
 
-// ------------------------------
-// 👉 Main Component
-// ------------------------------
-
 const App: React.FC = () => {
   const { timings, setTimings } = usePrayerStore();
-  const [location, setLocation] = useState<string>("Detecting...");
-  const [error, setError] = useState<string>("");
+  const [location, setLocation] = useState("Detecting...");
+  const [error, setError] = useState("");
   const [currentPrayer, setCurrentPrayer] = useState<PrayerName | "">("");
   const [nextPrayer, setNextPrayer] = useState<[PrayerName, number]>(["Fajr", 0]);
 
-  // 🧠 Get next prayer and its minutes from now
   const getNextPrayer = (): [PrayerName, number] => {
     const now = new Date();
     for (let i = 0; i < prayerOrder.length; i++) {
@@ -97,16 +75,13 @@ const App: React.FC = () => {
     return ["Fajr", differenceInMinutes(fajrTomorrow, now)];
   };
 
-  // 📍 Fetch location and timings
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       async (position) => {
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
-
         const loc = await getLocationFromCoords(lat, lon);
         setLocation(`${loc.city}, ${loc.country}`);
-
         const data = await getPrayerTimes(lat, lon);
         setTimings(data);
       },
@@ -114,7 +89,6 @@ const App: React.FC = () => {
     );
   }, [setTimings]);
 
-  // 🔄 Update current and next prayer
   useEffect(() => {
     if (timings.Fajr) {
       const [curr, mins] = getNextPrayer();
@@ -124,10 +98,14 @@ const App: React.FC = () => {
   }, [timings]);
 
   return (
-    <div className="bg-[#f9f9ff] min-h-screen text-black">
+    <div className="bg-gradient-to-b from-[#fefefe] to-[#f3f7ff] min-h-screen text-black font-sans">
       <Header location={location} error={error} />
 
-      <div className="space-y-4 px-4 pb-24">
+      <main className="grid place-items-center gap-6 px-4 py-6 pb-24">
+        <h2 className="text-lg font-semibold text-indigo-700 text-center">
+          🕊️ Next Prayer: {currentPrayer} — {formatMinutes(nextPrayer[1])} remaining
+        </h2>
+
         {prayerOrder.map((p) => (
           <PrayerCard
             key={p}
@@ -139,7 +117,7 @@ const App: React.FC = () => {
             color={colorMap[p]}
           />
         ))}
-      </div>
+      </main>
 
       <Footer />
     </div>
