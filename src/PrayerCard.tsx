@@ -18,6 +18,8 @@ interface PrayerCardProps {
   allTimings: Record<PrayerName, string>;
   nextIn: string;
   color: [string, string];
+ 
+  isCurrent: boolean; 
 }
 
 const PrayerCard: React.FC<PrayerCardProps> = ({
