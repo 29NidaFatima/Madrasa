@@ -1,6 +1,6 @@
 import Dua from "../Assets/Dua.png";
 import Frame from "../Assets/Frame.png";
-import Home from "/assets/Home.png";
+import Home from "../Assets/Home.png";
 import Maktab from "../Assets/Maktab.png";
 import Quran from "../Assets/Quran.png";
 
