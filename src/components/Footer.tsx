@@ -1,4 +1,4 @@
-import Dua from "../Assets/Dua.png";
+import Dua from "../assets/Dua.png";
 import Frame from "../Assets/Frame.png";
 import Home from "../Assets/Home.png";
 import Maktab from "../Assets/Maktab.png";
