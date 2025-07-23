@@ -1,4 +1,3 @@
-import React from "react";
 import Dua from "../Assets/Dua.png";
 import Frame from "../Assets/Frame.png";
 import Home from "../Assets/Home.png";
@@ -18,7 +17,7 @@ const Footer = () => {
           <span className="text-[11px] font-medium">Quran</span>
         </div>
         <div className="flex flex-col items-center bg-purple-600 text-white p-2 rounded-full -mt-6 shadow-md">
-          <img src={Frame} alt="Frame" className="w-5 h-5" />
+          <img src={Frame} alt="Center" className="w-5 h-5" />
         </div>
         <div className="flex flex-col items-center">
           <img src={Maktab} alt="Maktab" className="w-5 h-5" />

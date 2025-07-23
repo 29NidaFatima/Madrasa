@@ -1,4 +1,3 @@
-import React from "react";
 import { Clock, Sun, CloudSun, Cloud, Moon } from "phosphor-react";
 import Arc from "./components/Arc";
 
@@ -12,29 +11,24 @@ const prayerIcons: Record<PrayerName, React.ReactElement> = {
   Isha: <Moon size={20} />,
 };
 
-
 const prayers: PrayerName[] = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
 
 interface PrayerCardProps {
   name: PrayerName;
-  time: string;
   allTimings: Record<PrayerName, string>;
   nextIn: string;
-  isCurrent: boolean;
   color: [string, string];
 }
 
 const PrayerCard: React.FC<PrayerCardProps> = ({
   name,
-  time,
   allTimings,
   nextIn,
-  isCurrent,
   color,
 }) => {
   return (
     <div
-      className="rounded-[28px] m-4 p-2 mx-2 mb-4 text-white"
+      className="w-[350px] h-[304px] sm:w-full sm:max-w-[90%] sm:h-auto rounded-[16px] m-4 p-4 text-white transition-transform duration-300 ease-in-out hover:scale-105"
       style={{
         background: `linear-gradient(to bottom right, ${color[0]}, ${color[1]})`,
       }}
